@@ -29,9 +29,9 @@ function AlreadyBoughtController(ShoppingListService) {
 function ShoppingListService() {
    var shoppingListService = this;
    var toBuyArr = [{name: "apples", quantity: "5"},
-                   {name: "spinach", quantity: "1"},
-                   {name: "bread", quantity: "1"},
-                   {name: "cheese", quantity: "2"},
+                   {name: "bunch of spinach", quantity: "1"},
+                   {name: "loaf of bread", quantity: "1"},
+                   {name: "blocks of cheese", quantity: "2"},
                    {name: "container of olives", quantity: "1"},];
    var alreadyBoughtArr = [];
 
