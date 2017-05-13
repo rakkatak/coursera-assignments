@@ -12,11 +12,12 @@
       templateUrl: 'menuItems.html',
       scope: {
         items : '<',
-        onRemove: '&'
+        onRemove: '&',
+        listEmpty: '='
       },
-       controller: FoundItemsDirectiveController,
-       controllerAs: 'list',
-       bindToController: true
+      //  controller: FoundItemsDirectiveController,
+      controllerAs: 'list'
+      //  bindToController: true
     };
 
     return ddo;
@@ -40,14 +41,16 @@
 
     list.items = [];
 
+    list.listEmpty = false;
+
     list.removeItem = function(itemIndex) {
+      console.log('hello');
       list.items.splice(itemIndex,1);
     };
 
     list.getMatchedMenuItems = function() {
       list.items = [];
 
-      if (list.searchTerm) {
         var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
         promise.then(function success(response){
           var responseItems = response.data.menu_items;
@@ -56,10 +59,13 @@
               list.items.push(responseItems[i]);
             }
           }
+
+          if (list.items.length==0) {
+            list.listEmpty = true;
+          }
         }).catch(function(error) {
           console.log(error);
         });
-      }
     };
 
   }
