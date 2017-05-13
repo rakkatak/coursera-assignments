@@ -3,48 +3,63 @@
 
   angular.module('NarrowItDownApp', [])
   .controller('NarrowItDownController', NarrowItDownController)
-  .service('MenuSearchService', MenuSearchService);
-  //.directive('foundItems', FoundItemsDirective);
+  .service('MenuSearchService', MenuSearchService)
+  .directive('foundItems', FoundItemsDirective);
 
 
   function FoundItemsDirective() {
     var ddo = {
       templateUrl: 'menuItems.html',
       scope: {
-        foundItems : '<'
-      }
+        items : '<',
+        onRemove: '&'
+      },
+       controller: FoundItemsDirectiveController,
+       controllerAs: 'list',
+       bindToController: true
     };
 
     return ddo;
+  }
+
+  function FoundItemsDirectiveController() {
+    var list = this;
+
+    list.itemsInList = function() {
+       if (list.items.length==0) {
+         return true;
+       } else {
+         return false;
+       }
+    };
   }
 
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController(MenuSearchService) {
     var list = this;
 
-    list.filteredList = []
+    list.items = [];
+
+    list.removeItem = function(itemIndex) {
+      list.items.splice(itemIndex,1);
+    };
 
     list.getMatchedMenuItems = function() {
-       console.log('hello '+list.searchTerm);
-       var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
+      list.items = [];
 
-
-      promise.then(function success(response){
-        var foundItems = [];
-        var responseItems = response.data.menu_items;
-        console.log("searchTerm "+list.searchTerm);
-        for (var i=0; i<responseItems.length; i++) {
-          if (responseItems[i].description.includes(list.searchTerm)) {
-            foundItems.push(responseItems[i]);
+      if (list.searchTerm) {
+        var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
+        promise.then(function success(response){
+          var responseItems = response.data.menu_items;
+          for (var i=0; i<responseItems.length; i++) {
+            if (responseItems[i].description.includes(list.searchTerm)) {
+              list.items.push(responseItems[i]);
+            }
           }
-        }
-        console.log(foundItems);
-        list.filteredList = foundItems;
-        return foundItems;
-      }).catch(function(error) {
-        console.log(error);
-      });
-
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
     };
 
   }
@@ -59,7 +74,6 @@
       });
       return response;
     }
-
   }
 
 

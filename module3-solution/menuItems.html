@@ -1,1 +1,7 @@
-<h3>Filtered Menu Items</h3>
+<ol>
+  <li ng-repeat="item in list.items">
+    {{ item.description }}
+    <button ng-click="list.onRemove({index: $index});">Don't want this one!</button>
+  </li>{{list.anita}}
+  <div ng-if="list.itemsInList()">Nothing found.</div>
+</ol>
