@@ -62,6 +62,8 @@
 
           if (list.items.length==0) {
             list.listEmpty = true;
+          } else {
+            list.listEmpty = false;
           }
         }).catch(function(error) {
           console.log(error);
