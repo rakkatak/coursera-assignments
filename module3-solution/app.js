@@ -11,7 +11,7 @@
     var ddo = {
       templateUrl: 'menuItems.html',
       scope: {
-        items : '=',
+        items : '<',
         onRemove: '&',
         listEmpty: '<'
       }
