@@ -11,7 +11,7 @@
     var ddo = {
       templateUrl: 'menuItems.html',
       scope: {
-        items : '<',
+        items : '=',
         onRemove: '&',
         listEmpty: '<'
       }
@@ -35,24 +35,28 @@
     list.getMatchedMenuItems = function() {
       // Empty list every time
       list.found = [];
+      list.listEmpty = true;
 
-      var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
-      promise.then(function success(response){
-        var responseItems = response.data.menu_items;
-        for (var i=0; i<responseItems.length; i++) {
-          if (responseItems[i].description.includes(list.searchTerm)) {
-            list.found.push(responseItems[i]);
+      if (list.searchTerm) {
+        var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
+        promise.then(function success(response){
+          var responseItems = response.data.menu_items;
+          for (var i=0; i<responseItems.length; i++) {
+            if (responseItems[i].description.includes(list.searchTerm)) {
+              list.found.push(responseItems[i]);
+            }
           }
-        }
 
-        if (list.found.length==0) {
-          list.listEmpty = true;
-        } else {
-          list.listEmpty = false;
-        }
-      }).catch(function(error) {
-        console.log(error);
+          if (list.found.length==0) {
+            list.listEmpty = true;
+          } else {
+            list.listEmpty = false;
+          }
+        }).catch(function(error) {
+          console.log(error);
         });
+      }
+
     };
 
   }
