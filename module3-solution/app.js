@@ -22,30 +22,30 @@
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController(MenuSearchService) {
     var list = this;
-    list.items = [];
+    list.found = [];
     // Flag used to display 'nothing to show' message
     // Initialized to false so message doesn't show when
     // the page first loads.
     list.listEmpty = false;
 
     list.removeItem = function(itemIndex) {
-      list.items.splice(itemIndex,1);
+      list.found.splice(itemIndex,1);
     };
 
     list.getMatchedMenuItems = function() {
       // Empty list every time
-      list.items = [];
+      list.found = [];
 
       var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
       promise.then(function success(response){
         var responseItems = response.data.menu_items;
         for (var i=0; i<responseItems.length; i++) {
           if (responseItems[i].description.includes(list.searchTerm)) {
-            list.items.push(responseItems[i]);
+            list.found.push(responseItems[i]);
           }
         }
 
-        if (list.items.length==0) {
+        if (list.found.length==0) {
           list.listEmpty = true;
         } else {
           list.listEmpty = false;
