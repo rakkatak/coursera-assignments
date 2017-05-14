@@ -13,60 +13,45 @@
       scope: {
         items : '<',
         onRemove: '&',
-        listEmpty: '='
-      },
-      //  controller: FoundItemsDirectiveController,
-      controllerAs: 'list'
-      //  bindToController: true
+        listEmpty: '<'
+      }
     };
-
     return ddo;
-  }
-
-  function FoundItemsDirectiveController() {
-    var list = this;
-
-    list.itemsInList = function() {
-       if (list.items.length==0) {
-         return true;
-       } else {
-         return false;
-       }
-    };
   }
 
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController(MenuSearchService) {
     var list = this;
-
     list.items = [];
-
+    // Flag used to display 'nothing to show' message
+    // Initialized to false so message doesn't show when
+    // the page first loads.
     list.listEmpty = false;
 
     list.removeItem = function(itemIndex) {
-      console.log('hello');
       list.items.splice(itemIndex,1);
     };
 
     list.getMatchedMenuItems = function() {
+      // Empty list every time
       list.items = [];
 
-        var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
-        promise.then(function success(response){
-          var responseItems = response.data.menu_items;
-          for (var i=0; i<responseItems.length; i++) {
-            if (responseItems[i].description.includes(list.searchTerm)) {
-              list.items.push(responseItems[i]);
-            }
+      var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
+      promise.then(function success(response){
+        var responseItems = response.data.menu_items;
+        for (var i=0; i<responseItems.length; i++) {
+          if (responseItems[i].description.includes(list.searchTerm)) {
+            list.items.push(responseItems[i]);
           }
+        }
 
-          if (list.items.length==0) {
-            list.listEmpty = true;
-          } else {
-            list.listEmpty = false;
-          }
-        }).catch(function(error) {
-          console.log(error);
+        if (list.items.length==0) {
+          list.listEmpty = true;
+        } else {
+          list.listEmpty = false;
+        }
+      }).catch(function(error) {
+        console.log(error);
         });
     };
 

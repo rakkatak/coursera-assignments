@@ -1,7 +1,8 @@
-<ol>
+
+  <ol>
   <li ng-repeat="item in items">
     {{ item.description }}
     <button ng-click="onRemove({index: $index});">Don't want this one!</button>
   </li>
-  <div ng-if="listEmpty">Nothing found.</div>
 </ol>
+<span ng-if="listEmpty">Nothing found.</span>

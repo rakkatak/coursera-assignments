@@ -13,17 +13,15 @@
     <div class="form-group">
       <input ng-model="foundList.searchTerm" type="text" placeholder="search term" class="form-control">
     </div>
-    <div class="form-group narrow-button">
+    <div class="form-group">
       <button ng-click="foundList.getMatchedMenuItems();" class="btn btn-primary">Narrow It Down For Me!</button>
     </div>
+      <!-- found-items should be implemented as a component -->
+      <found-items
+        items="foundList.items"
+        on-remove="foundList.removeItem(index)"
+        list-empty="foundList.listEmpty"></found-items>
 
-  </div>
-  <div>
-    <!-- found-items should be implemented as a component -->
-    <found-items
-      items="foundList.items"
-      on-remove="foundList.removeItem(index)"
-      list-empty="foundList.listEmpty"></found-items>
   </div>
 
 <script src="angular.min.js"></script>
