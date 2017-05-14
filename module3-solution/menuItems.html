@@ -1,14 +1,18 @@
 
 <table style="width:100%" border="1">
-  <tr>
+  <tr ng-if="!listEmpty">
+    <th>#</th>
     <th>Name</th>
     <th>Short Name</th>
     <th>Description</th>
+    <th>Remove</th>
   </tr>
   <tr ng-repeat="item in items">
+    <th>{{$index+1}}</th>
     <th style="font-weight: normal">{{ item.name }}</th>
     <th style="font-weight: normal">{{ item.short_name }}</th>
     <th style="font-weight: normal">{{ item.description }}</th>
+    <th style="font-weight: normal"><button ng-click="onRemove({index: $index});">Don't want this one!</button></th>
   </tr>
 </table>
 <span ng-if="listEmpty">Nothing found.</span>
