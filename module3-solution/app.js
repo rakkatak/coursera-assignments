@@ -38,23 +38,19 @@
       list.listEmpty = true;
 
       if (list.searchTerm) {
-        var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
-        promise.then(function success(response){
-          var responseItems = response.data.menu_items;
-          for (var i=0; i<responseItems.length; i++) {
-            if (responseItems[i].description.includes(list.searchTerm)) {
-              list.found.push(responseItems[i]);
-            }
-          }
+       var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
 
+       promise.then(function (response) {
+          list.found = response;
           if (list.found.length==0) {
-            list.listEmpty = true;
+              list.listEmpty = true;
           } else {
-            list.listEmpty = false;
+              list.listEmpty = false;
           }
-        }).catch(function(error) {
-          console.log(error);
-        });
+       })
+       .catch(function (error) {
+         console.log("Something went terribly wrong.");
+       });
       }
 
     };
@@ -66,10 +62,21 @@
     var service = this;
 
     service.getMatchedMenuItems = function(searchTerm) {
-      var response = $http({
+      var found = [];
+      return $http({
         url: "https://davids-restaurant.herokuapp.com/menu_items.json"
+      }).then(function success(response){
+        var responseItems = response.data.menu_items;
+        for (var i=0; i<responseItems.length; i++) {
+          if (responseItems[i].description.includes(searchTerm)) {
+            found.push(responseItems[i]);
+          }
+        }
+
+        return found;
+      }).catch(function(error) {
+        console.log(error);
       });
-      return response;
     }
   }
 
