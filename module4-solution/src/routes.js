@@ -31,8 +31,8 @@
        }
      })
      // Items page
-     .state('itemDetail', {
-       url: '/itemDetail/{short_name}/{category}',
+     .state('items', {
+       url: '/items/{short_name}/{category}',
        templateUrl: 'src/menu/templates/main-items.template.html',
        controller: 'ItemsController as itemsCtrl',
        resolve: {
