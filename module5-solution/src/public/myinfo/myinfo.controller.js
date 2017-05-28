@@ -1,10 +1,10 @@
 (function() {
-  "use strict";
-  
-  angular.module('public')
-  .controller("MyInfoController", MyInfoController);
+  'use strict';
 
-  MyInfoController.$inject = ["SignupService"];
+  angular.module('public')
+  .controller('MyInfoController', MyInfoController);
+
+  MyInfoController.$inject = ['SignupService'];
 
   function MyInfoController(SignupService) {
     var myInfoCtrl = this;

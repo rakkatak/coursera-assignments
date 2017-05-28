@@ -1,10 +1,10 @@
 (function() {
-  "use strict";
+  'use strict';
 
   angular.module('public')
   .controller('SignupController', SignupController);
 
-  SignupController.$inject = ["SignupService", "allMenuItems"];
+  SignupController.$inject = ['SignupService', 'allMenuItems'];
   function SignupController(SignupService, allMenuItems) {
     var signupCtrl = this;
     signupCtrl.allMenuItems = allMenuItems.menu_items;
