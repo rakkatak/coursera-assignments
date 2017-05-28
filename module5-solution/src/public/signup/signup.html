@@ -38,7 +38,7 @@
           </span>
           <br>
 
-        <input type="text" name="favoriteMenuItemShortName" placeholder="Favorite Menu Item"
+        <input type="text" name="favoriteMenuItemShortName" placeholder="Favorite Menu Number"
           class="{{regForm.favoriteMenuItemShortName.$touched &&
                       (signupCtrl.allMenuItems | filter : signupCtrl.user.favoriteMenuItemShortName : signupCtrl.menuItemComparator).length!=1}}"
           ng-model="signupCtrl.user.favoriteMenuItemShortName">
