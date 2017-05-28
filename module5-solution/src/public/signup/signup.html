@@ -30,6 +30,14 @@
         </span>
         <br>
 
+        <input type="text" name="phone" placeholder="Phone ###-###-####"
+          ng-model="signupCtrl.user.phone"
+          pattern="(\d{3})-(\d{3})-(\d{4})">
+          <span ng-if="regForm.phone.$invalid && regForm.phone.$touched">
+            Phone must be in the format ###-###-####.
+          </span>
+          <br>
+
         <input type="text" name="favoriteMenuItemShortName" placeholder="Favorite Menu Item"
           class="{{regForm.favoriteMenuItemShortName.$touched &&
                       (signupCtrl.allMenuItems | filter : signupCtrl.user.favoriteMenuItemShortName : signupCtrl.menuItemComparator).length!=1}}"
