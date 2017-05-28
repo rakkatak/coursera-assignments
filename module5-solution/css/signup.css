@@ -1,0 +1,19 @@
+#submitButton[disabled] {
+  color: white;
+}
+
+#submitButton {
+  color: black;
+}
+
+.ng-touched.ng-valid {
+  border: 2px green solid;
+}
+
+.ng-touched.ng-invalid {
+  border: 2px red solid;
+}
+
+input {
+  color: black;
+}
