@@ -1,47 +1,54 @@
 <div class="container">
   <h2>Sign Up</h2>
   <form name='regForm' novalidate>
-    <input type="text" name="firstname" placeholder="First Name"
-      ng-model="signupCtrl.user.firstname"
-      required>
-      {{ signupCtrl.user.firstname }}
-    <span
-      ng-if="(regForm.firstname.$error.required) && regForm.firstname.$touched">
-      Please provide a first name.
+        <input type="text" name="firstname" placeholder="First Name"
+          ng-model="signupCtrl.user.firstname"
+          required>
+          {{ signupCtrl.user.firstname }}
+        <span
+          ng-if="(regForm.firstname.$error.required) && regForm.firstname.$touched">
+          Please provide a first name.
+        </span>
+        <br>
+
+        <input type="text" name="lastname" placeholder="Last Name"
+          ng-model="signupCtrl.user.lastname"
+          required>
+          {{ signupCtrl.user.lastname }}
+        <span
+          ng-if="(regForm.lastname.$error.required) && regForm.lastname.$touched">
+          Please provide a last name.
+        </span>
+        <br>
+
+        <input type="email" name="email" placeholder="Email"
+          ng-model="signupCtrl.user.email"
+          required>
+          {{ signupCtrl.user.email }}
+        <span ng-if="regForm.email.$invalid && regForm.email.$touched">
+          Must be a valid email address: handle@domain format
+        </span>
+        <br>
+
+        <input type="text" name="favoriteMenuItemShortName" placeholder="Favorite Menu Item"
+          class="{{regForm.favoriteMenuItemShortName.$touched &&
+                      (signupCtrl.allMenuItems | filter : signupCtrl.user.favoriteMenuItemShortName : signupCtrl.menuItemComparator).length!=1}}"
+          ng-model="signupCtrl.user.favoriteMenuItemShortName">
+          <span ng-if="regForm.favoriteMenuItemShortName.$touched &&
+                      (signupCtrl.allMenuItems | filter : signupCtrl.user.favoriteMenuItemShortName : signupCtrl.menuItemComparator).length!=1">
+            Menu Item does not exist.
+          </span>
+        <br>
+
+        <button id="submitButton"
+          ng-disabled="regForm.$invalid ||
+          (signupCtrl.allMenuItems | filter : signupCtrl.user.favoriteMenuItemShortName : signupCtrl.menuItemComparator).length!=1 ||
+          signupCtrl.currentUser"
+          ng-click="signupCtrl.submit()">Submit</button>
+        <br>
     </span>
-    <br>
-
-    <input type="text" name="lastname" placeholder="Last Name"
-      ng-model="signupCtrl.user.lastname"
-      required>
-      {{ signupCtrl.user.lastname }}
-    <span
-      ng-if="(regForm.lastname.$error.required) && regForm.lastname.$touched">
-      Please provide a last name.
+    <span  ng-if="signupCtrl.currentUser">
+      User saved!
     </span>
-    <br>
-
-    <input type="email" name="email" placeholder="Email"
-      ng-model="signupCtrl.user.email"
-      required>
-      {{ signupCtrl.user.email }}
-    <span ng-if="regForm.email.$invalid && regForm.email.$touched">
-      Must be a valid email address: handle@domain format
-    </span>
-    <br>
-
-    <input type="text" name="favoriteMenuItem" placeholder="Favorite Menu Item"
-      ng-model="signupCtrl.user.favoriteMenuItem">
-      <span ng-if="regForm.favoriteMenuItem.$touched &&
-                  (signupCtrl.allMenuItems | filter : signupCtrl.user.favoriteMenuItem : signupCtrl.menuItemComparator).length!=1">
-        Menu Item does not exist.
-      </span>
-    <br>
-
-    <button id="submitButton"
-      ng-disabled="regForm.$invalid"
-      ng-click="signupCtrl.submit()">Submit</button>
-
-    <br>
   </form>
 </div>

@@ -11,9 +11,16 @@
       signupService.user = {};
 
       signupService.saveSignupInfo = function(user) {
+        // Ideally we would be saving to a database but we'll use rootScope for the purposes of the assignment
         $rootScope.user = user;
+        return user;
+      }
 
-        console.log("Signed up user is: ",$rootScope.user);
+      signupService.getCurrentUser = function() {
+        // Ideally we would be retrieving from a database but we are using rootScope for the purposes of the assignment
+        if ($rootScope.user) {
+          return $rootScope.user;
+        }
       }
     }
 })();
