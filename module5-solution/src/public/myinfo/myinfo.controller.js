@@ -4,15 +4,11 @@
   angular.module('public')
   .controller('MyInfoController', MyInfoController);
 
-  MyInfoController.$inject = ['SignupService'];
+  MyInfoController.$inject = ['currentUser'];
 
-  function MyInfoController(SignupService) {
+  function MyInfoController(currentUser) {
     var myInfoCtrl = this;
 
-    myInfoCtrl.init = function() {
-      myInfoCtrl.currentUser = SignupService.getCurrentUser();
-    }
-
-    myInfoCtrl.init();
+    myInfoCtrl.currentUser = currentUser;
   }
 })();

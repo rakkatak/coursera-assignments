@@ -56,7 +56,12 @@ function routeConfig ($stateProvider) {
       url: '/myinfo',
       templateUrl: 'src/public/myinfo/myinfo.html',
       controller: 'MyInfoController',
-      controllerAs: 'myInfoCtrl'
+      controllerAs: 'myInfoCtrl',
+      resolve: {
+        currentUser: ['SignupService', function (SignupService) {
+          return SignupService.getCurrentUser();
+        }]
+      }
     });
 }
 })();
